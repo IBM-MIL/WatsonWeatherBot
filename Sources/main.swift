@@ -65,7 +65,7 @@ private func getClassifyTopClass(text:String, success: (String -> Void) ) {
     
     let nlc = NaturalLanguageClassifier(username: Configuration.naturalLanguageClassifierUsername , password: Configuration.naturalLanguageClassifierPassword)
     nlc.classify(
-        classifierId: "3a84d1x62-nlc-17603",
+        classifierId: Configuration.classifierID,
         text: text,
         failure: failure) { classify in
             
