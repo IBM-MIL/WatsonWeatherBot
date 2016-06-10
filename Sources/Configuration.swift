@@ -17,7 +17,7 @@
 public struct Configuration  {
     
     static let staticGeocode = ""
-	static let slackToken = ""
+    static let slackToken = ""
     static let slackIncomingWebhookURL = ""
     static let weatherUsername = ""
     static let weatherPassword = ""
