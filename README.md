@@ -138,4 +138,24 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
     static let naturalLanguageClassifierPassword = "Replace this with what you got in Step 5"
 }
 ```
+
+13. Redeploy your app now with the Credentials set properly
+
+ `cf push`
+  
+ The deployment of the app usually takes about 4-7 minutes to complete. Once it is finished, you should get a message like:
+  
+ ```
+ 1 of 1 instances running 
+
+ App started
+ ```
+  
+14. Type `/weather What are the current weather conditions?`
+
+ If it worked properly, you should get a similar response:
+ 
+ ```
+ Today: Sunshine and a few afternoon clouds. High 91F. Winds SE at 5 to 10 mph. Tonight Partly cloudy. Low 71F. Winds SSE at 5 to 10 mph. The current temperature in Austin is 78 F.
+ ```
  
