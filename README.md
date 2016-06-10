@@ -125,3 +125,17 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 
  Open in your favorite editor Configuration.swift. All of these values need to be set.
  
+ ```
+ public struct Configuration  {
+    
+    static let classifierID = "replace this value with what you got in Step 7"
+    static let staticGeocode = "30.401633699999998,-97.7143924" You can replace this with any longitude and latitude
+    static let slackToken = "replace this with what you got in Step 10"
+    static let slackIncomingWebhookURL = "replace this with what you got in Step 11"
+    static let weatherUsername = "Replace this with what you got in Step 5"
+    static let weatherPassword = "Replace this with what you got in Step 5"
+    static let naturalLanguageClassifierUsername = "Replace this with what you got in Step 5"
+    static let naturalLanguageClassifierPassword = "Replace this with what you got in Step 5"
+}
+```
+ 
