@@ -26,7 +26,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 
   `cf push`
   
-5. Get the credentials such as username and password from both weatherbot-weather and weatherbot-nlc
+5. Get the URL for your app and also credentials such as username and password from both weatherbot-weather and weatherbot-nlc
 
   `cf env`
   
@@ -54,7 +54,21 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
   ]
   ```
   
- 6. Train the Natural Language Classifier
+  Record the URIs that appears for your deployment:
+  
+  ```
+  "name": "WatsonWeatherBot",
+  "space_id": "f900a490-dbd5-4053-abe2-c7645e3527eb",
+  "space_name": "Swift",
+  "uris": [
+   "watsonweatherbot-posttympanic-marathon.mybluemix.net"
+  ],
+  "users": null,
+  "version": "dfa2cccf-8990-4dc4-9a0b-876579beae29"
+ }
+ ```
+  
+ 6. Train the Natural Language Classifier:
  
  ```
  curl -u username:password -F training_data=@Training/weather_question_corpus.csv -F training_metadata="{\"language\":\"en\",\"name\":\"My Classifier\"}" "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers"
@@ -75,3 +89,20 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
   "status_description" : "The classifier instance is in its training phase, not yet ready to accept classify requests"
  }%
  ```
+
+8. Create a new [Slack](https://slack.com/) team or use an existing one with admin priviledges:
+
+9. Add new integrations to your Slack team
+
+  Go to ***Add integrations*** in the settings. Then go to ***Manage***
+  
+  In Custom Integrations, add the following:
+ 
+10. Add integration ***Slash Commands***:
+
+ Use the following configuration:
+ 
+  ***Command***: `/weather`
+  ***URL***: `your URL goes here`
+  ***Method***: `POST`
+  
