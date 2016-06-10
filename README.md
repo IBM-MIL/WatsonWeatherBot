@@ -103,11 +103,25 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
  Use the following configuration:
  
  ```
-  ***Command***: `/weather`
-  ***URL***: `your URL goes here`
-  ***Method***: `POST`
-  ***Token***: this is not settable, record this to add to your code
-  ***Autocomplete help text***:
+ Command: `/weather`
+  URL: `your URL goes here`
+  Method: `POST`
+  Token: this is not settable, record this to add to Configuration.swift
+  Autocomplete help text:
      Description: `Get the weather`
      Usage hint: `What is the current temperature?`
  ```
+
+11. Add integration ***Incoming Webhooks***:
+  
+ Use the following configuration:
+
+ ```
+ Post to Channel: choose a channel to post the weather information to
+ Webhook URL: This is not settable, record this to later place in Configuration.swift
+ ```
+ 
+12. Modify Configuration.swift in Sources directory
+
+ Open in your favorite editor Configuration.swift. All of these values need to be set.
+ 
