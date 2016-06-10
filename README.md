@@ -25,3 +25,31 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 4. Deploy the app:
 
   `cf push`
+  
+5. Get the credentials such as username and password from both weatherbot-weather and weatherbot-nlc
+
+  `cf env`
+  
+  The complete VCAP information will be dumped to the screen. Record somewhere the username and passwords:
+  
+  ```
+  "weatherinsights": [
+   {
+    "credentials": {
+     "host": "twcservice.mybluemix.net",
+     "password": "password appears here",
+     "port": 443,
+     "url": "https://fe797021-310d-4092-848b-2d0a98d1f558:PahtQOZNlX@twcservice.mybluemix.net",
+     "username": "user appears here"
+    },
+    "label": "weatherinsights",
+    "name": "weatherbot-weather",
+    "plan": "Free",
+    "tags": [
+     "big_data",
+     "ibm_created",
+     "ibm_dedicated_public"
+    ]
+   }
+  ]
+  ```
