@@ -151,7 +151,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
  App started
  ```
   
-14. Type `/weather What are the current weather conditions?`
+14. Type in your Slack channel: `/weather What are the current weather conditions?`
 
  If it worked properly, you should get a similar response:
  
