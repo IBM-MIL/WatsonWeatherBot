@@ -102,7 +102,12 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 
  Use the following configuration:
  
+ ```
   ***Command***: `/weather`
   ***URL***: `your URL goes here`
   ***Method***: `POST`
-  
+  ***Token***: this is not settable, record this to add to your code
+  ***Autocomplete help text***:
+     Description: `Get the weather`
+     Usage hint: `What is the current temperature?`
+ ```
