@@ -53,4 +53,25 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
    }
   ]
   ```
+  
+ 6. Train the Natural Language Classifier
+ 
+ ```
+ curl -u username:password -F training_data=@Training/weather_question_corpus.csv -F training_metadata="{\"language\":\"en\",\"name\":\"My Classifier\"}" "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers"
+ ```
 
+7. Record the classifier_id:
+ 
+  After the training step, the classifier id will be returned in a message similar to this:
+
+  ```
+ {
+  "classifier_id" : "classifier id appears here",
+  "name" : "My Classifier",
+  "language" : "en",
+  "created" : "2016-06-10T15:14:49.322Z",
+  "url" : "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers/classifier id",
+  "status" : "Training",
+  "status_description" : "The classifier instance is in its training phase, not yet ready to accept classify requests"
+ }%
+ ```
