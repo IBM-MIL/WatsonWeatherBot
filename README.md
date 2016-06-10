@@ -39,7 +39,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
      "host": "twcservice.mybluemix.net",
      "password": "password appears here",
      "port": 443,
-     "url": "https://fe797021-310d-4092-848b-2d0a98d1f558:PahtQOZNlX@twcservice.mybluemix.net",
+     "url": "url appears here",
      "username": "user appears here"
     },
     "label": "weatherinsights",
@@ -53,3 +53,4 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
    }
   ]
   ```
+
