@@ -9,7 +9,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 2. Install the [Cloud Foundry CLI interface[(https://github.com/cloudfoundry/cli#downloads).
 
 3. Register for a [Bluemix account](https://console.ng.bluemix.net/registration/). We will be using two services from BlueMix for this application:
-  * The [Natural Language Classifier[(http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html) service interprets the intent behind the queries to the bot, and will return a classification corresponding to the nature of the query.
+  * The [Natural Language Classifier](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html) service interprets the intent behind the queries to the bot, and will return a classification corresponding to the nature of the query.
   * [Insights for Weather](https://console.ng.bluemix.net/catalog/services/insights-for-weather) enables you to integrate real-time or historical data into your applications.
 
 4. Have a Slack team with admin privileges ready, or create a new [Slack](https://slack.com/) team.
@@ -23,7 +23,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 
 2. If you haven't already, login to BlueMix. To do so, set the API endpoint and then login to your account.
 
-```
+```bash
 cf api https://api.ng.bluemix.net
 cf login
 ```
@@ -32,7 +32,7 @@ cf login
 
 *Note that you will receive a warning that the Natural Language Classifier incurs a cost. As of the time this bot was created, a starter level of usage is included at not cost. For more details, see the [NLC pricing](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html#pricing-block).
 
-  ```
+  ```bash
   cf create-service weatherinsights Free weatherbot-weather
   cf create-service natural_language_classifier standard weatherbot-nlc
   ```
@@ -47,7 +47,7 @@ cf login
   
   The complete VCAP information will be dumped to the screen. Record somewhere the username and passwords:
   
-  ```
+  ```javascript
   "weatherinsights": [
    {
     "credentials": {
@@ -71,7 +71,7 @@ cf login
   
   Record the URIs that appears for your deployment:
   
-  ```
+  ```javascript
   "name": "WatsonWeatherBot",
   "space_id": "f900a490-dbd5-4053-abe2-c7645e3527eb",
   "space_name": "Swift",
@@ -87,13 +87,13 @@ cf login
  
 Replace username:password below with the credentials from the `natural_language_classifier` section of `VCAP_SERVICES` you recorded in the previous step.
  
- ```
+ ```bash
  curl -u username:password -F training_data=@Training/weather_question_corpus.csv -F training_metadata="{\"language\":\"en\",\"name\":\"My Classifier\"}" "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers"
  ```
 
 7. Record the `classifier_id`. After the training step, it will be returned in a message similar to this:
 
-  ```
+  ```javascript
  {
   "classifier_id" : "classifier id appears here",
   "name" : "My Classifier",
@@ -126,15 +126,15 @@ Replace username:password below with the credentials from the `natural_language_
  Use the following configuration:
 
  ```
- Post to Channel: choose a channel to post the weather information to
- Webhook URL: This is not settable, record this to later place in Configuration.swift
+ Post to Channel: (choose a channel to post the weather information to)
+ Webhook URL: (This is not settable, record this to later place in Configuration.swift)
  ```
  
 12. Modify Configuration.swift in `Sources` directory
 
  Open in your favorite editor Configuration.swift. All of these values need to be set.
  
- ```
+ ```Swift
  public struct Configuration  {
     
     static let classifierID = "replace this value with what you got in Step 7"
