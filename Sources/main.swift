@@ -14,7 +14,6 @@
 * limitations under the License.
 **/
 
-// Kitura-Starter-Bluemix shows examples for creating custom routes.
 import Foundation
 import Kitura
 import KituraSys
@@ -63,7 +62,9 @@ router.get("/hello") { _, response, next in
  */
 private func getClassifyTopClass(text:String, success: (String -> Void) ) {
     
-    let nlc = NaturalLanguageClassifier(username: Configuration.naturalLanguageClassifierUsername , password: Configuration.naturalLanguageClassifierPassword)
+    let nlc = NaturalLanguageClassifier(username: Configuration.naturalLanguageClassifierUsername ,
+                                        password: Configuration.naturalLanguageClassifierPassword)
+    
     nlc.classify(
         classifierId: Configuration.classifierID,
         text: text,
@@ -180,8 +181,8 @@ private func respondToSlack(response:String, requestDecode:SlackRequest) throws 
 }
 
 /**
- *  This is the entry point for requesting information from watson bot.  As NLC is trained more then 
- *  this bot will become more intelligent
+ *  This is the entry point for requesting information from Watson weather bot.  
+ * As NLC is trained more then this bot will become more intelligent
  */
 router.post("/askWatson") { request, response, next in
     
@@ -195,20 +196,23 @@ router.post("/askWatson") { request, response, next in
             next()
             return
         }
-//        guard token == slackToken else {
-//            try response.status(.forbidden).send("forbidden").end()
-//            next()
-//            return
-//        }
-    }catch {
+        
+        Log.info("Received \(requestDecoded)")
+        guard token == Configuration.slackToken else {
+            try response.status(.forbidden).send("forbidden").end()
+            next()
+            return
+        }
+    } catch {
         Log.error("Failed to send response \(error)")
+        
     }
     
     if let requestDecoded = requestDecoded {
         do {
             let acknowledge = "Hi @\(requestDecoded.userName!)! I see you have a question. Let's see what I can find for you."
-            try respondToSlack(response: acknowledge, requestDecode: requestDecoded)
-            try response.status(.OK).end()
+            // try respondToSlack(response: acknowledge, requestDecode: requestDecoded)
+            // try response.status(.OK).end()
         } catch {
             Log.error("Failed to send response \(error)")
         }
@@ -230,8 +234,8 @@ router.post("/askWatson") { request, response, next in
                     sendValue  = "I'm currently not trained for this type of question"
                 }
                 Log.info("text from decode \(requestDecoded.text)")
-                try respondToSlack(response: sendValue, requestDecode: requestDecoded)
-                try response.status(.OK).end()
+                //try respondToSlack(response: sendValue, requestDecode: requestDecoded)
+                try response.status(.OK).send(sendValue).end()
             } catch {
                 Log.error("Failed to send response \(error)")
             }
