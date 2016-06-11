@@ -16,12 +16,8 @@
 
 import Foundation
 import Kitura
-import KituraSys
-import KituraNet
 import LoggerAPI
-import HeliumLogger
-import CFEnvironment
-import SwiftyJSON
+
 
 class WatsonWeatherBot {
     
@@ -34,37 +30,30 @@ class WatsonWeatherBot {
     
     private func handleAskWatson(request: RouterRequest, response: RouterResponse, next: ()->Void ) {
         
-        var requestDecoded: SlackRequest?
-        
         do {
-            var readstring = try request.readString()
-            requestDecoded = SlackRequest(payload: readstring!)
-            guard let token = requestDecoded?.token else {
+            let requestData = try request.readString()
+            
+            guard let readString = requestData else {
+                try response.status(.badRequest).end()
+                return
+            }
+            
+            let requestDecoded = SlackRequest(payload: readString)
+            
+            guard let token = requestDecoded.token else {
+                Log.warning("Slack sent request without a token")
                 try response.status(.forbidden).send("forbidden").end()
                 next()
                 return
             }
             
-            Log.info("Received \(requestDecoded)")
             guard token == Configuration.slackToken else {
+                Log.warning("Slack sent a request with an invalid token")
                 try response.status(.forbidden).send("forbidden").end()
                 next()
                 return
             }
-        } catch {
-            Log.error("Failed to send response \(error)")
-            
-        }
         
-        if let requestDecoded = requestDecoded {
-            do {
-                let acknowledge = "Hi @\(requestDecoded.userName!)! I see you have a question. Let's see what I can find for you."
-                // try respondToSlack(response: acknowledge, requestDecode: requestDecoded)
-                // try response.status(.OK).end()
-            } catch {
-                Log.error("Failed to send response \(error)")
-            }
-            
             getClassifyTopClass(text: requestDecoded.text!) { topClass in
                 
                 do {
@@ -88,8 +77,10 @@ class WatsonWeatherBot {
                 }
                 next()
             }
+            
+        } catch {
+            Log.error("Failed to send response \(error)")
         }
-
     }
     
     private func handleTemperature(request: RouterRequest, response: RouterResponse, next: ()->Void ) {
