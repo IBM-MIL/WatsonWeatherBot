@@ -17,6 +17,9 @@
 import Foundation
 import SwiftyJSON
 
+/**
+ * Incoming Slack messages from the Slash command contain the following elements.
+ */
 public enum SlackItem {
     case token
     case teamId
