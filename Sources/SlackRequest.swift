@@ -98,8 +98,6 @@ public struct SlackRequest {
                 command = elementItem[1]
             case SlackItem.text.description():
                 text = elementItem[1]
-//            case SlackItem.responseURL.description():
-//                responseURL = "https://hooks.slack.com/services/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" //elementItem[1]
             default:
                 break
             }
