@@ -21,7 +21,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 
   `git clone https://github.com/IBM-MIL/WatsonWeatherBot/`
 
-2. If you haven't already, login to BlueMix. First, set the API endpoint and then login to your account.
+2. If you haven't already, login to BlueMix. To do so, set the API endpoint and then login to your account.
 
 ```
 cf api https://api.ng.bluemix.net
@@ -83,15 +83,15 @@ cf login
  }
  ```
   
- 6. Train the Natural Language Classifier. Replace username:password below with the credentials from the `natural_language_classifier` section of `VCAP_SERVICES` you recorded in the previous step.
+ 6. Train the Natural Language Classifier. During this process, you seed the classifier with some strings and corresponding classifications. A training set is provided in `Training/weather_question_corpus.csv`. Note that it may take several minutes for the training process to complete.
+ 
+Replace username:password below with the credentials from the `natural_language_classifier` section of `VCAP_SERVICES` you recorded in the previous step.
  
  ```
  curl -u username:password -F training_data=@Training/weather_question_corpus.csv -F training_metadata="{\"language\":\"en\",\"name\":\"My Classifier\"}" "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers"
  ```
 
-7. Record the classifier_id:
- 
-  After the training step, the classifier id will be returned in a message similar to this:
+7. Record the `classifier_id`. After the training step, it will be returned in a message similar to this:
 
   ```
  {
@@ -105,29 +105,23 @@ cf login
  }%
  ```
 
-8. Create a new [Slack](https://slack.com/) team or use an existing one with admin priviledges:
+9. Add new integrations to your Slack team. From `https://<TEAM-NAME>.slack.com/apps`, you will search for the ***Slash Commands*** and ***Incoming Webhooks*** integrations during the following steps.
 
-9. Add new integrations to your Slack team
-
-  Go to ***Add integrations*** in the settings. Then go to ***Manage***
-  
-  In Custom Integrations, add the following:
- 
-10. Add integration ***Slash Commands***:
+10. Install the integration ***Slash Commands***:
 
  Use the following configuration:
  
  ```
  Command: `/weather`
-  URL: `your URL goes here`
+  URL: `URL to WatsonWeatherBot service recorded when calling cf env. Use an https:// prefix`
   Method: `POST`
   Token: this is not settable, record this to add to Configuration.swift
-  Autocomplete help text:
+  Autocomplete help text: Select the box
      Description: `Get the weather`
      Usage hint: `What is the current temperature?`
  ```
 
-11. Add integration ***Incoming Webhooks***:
+11. Install the integration ***Incoming Webhooks***:
   
  Use the following configuration:
 
@@ -136,7 +130,7 @@ cf login
  Webhook URL: This is not settable, record this to later place in Configuration.swift
  ```
  
-12. Modify Configuration.swift in Sources directory
+12. Modify Configuration.swift in `Sources` directory
 
  Open in your favorite editor Configuration.swift. All of these values need to be set.
  
@@ -144,7 +138,7 @@ cf login
  public struct Configuration  {
     
     static let classifierID = "replace this value with what you got in Step 7"
-    static let staticGeocode = "30.401633699999998,-97.7143924" You can replace this with any longitude and latitude
+    static let staticGeocode = "37.7839,122.4012" You can replace this with any longitude and latitude
     static let slackToken = "replace this with what you got in Step 10"
     static let slackIncomingWebhookURL = "replace this with what you got in Step 11"
     static let weatherUsername = "Replace this with what you got in Step 5"
@@ -171,5 +165,5 @@ cf login
  If it worked properly, you should get a similar response:
  
  ```
- Today: Sunshine and a few afternoon clouds. High 91F. Winds SE at 5 to 10 mph. Tonight Partly cloudy. Low 71F. Winds SSE at 5 to 10 mph. The current temperature in Austin is 78 F.
+ Today: Sunshine and a few afternoon clouds. High 91F. Winds SE at 5 to 10 mph. Tonight Partly cloudy. Low 71F. Winds SSE at 5 to 10 mph. The current temperature in San Francisco is 78 F.
  ```
