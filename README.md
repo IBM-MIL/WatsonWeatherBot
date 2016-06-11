@@ -2,33 +2,48 @@
 
 A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-watson-sdk](https://github.com/IBM-Swift/swift-watson-sdk) to create a Slack bot for grabbing current weather information.
 
-## Requires:
+## Prerequisites:
 
- - [Open source Swift 3.0 - SNAPSHOT 05-03-a](https://swift.org/download/#snapshots)
- - [CF Command Line Interface](https://new-console.ng.bluemix.net/docs/starters/install_cli.html)
- 
+1. Install [Open source Swift 3.0 - SNAPSHOT 05-03-a](https://swift.org/download/#snapshots), making sure to [update your `$PATH`](https://swift.org/getting-started/#installing-swift). 
+
+2. Install the [Cloud Foundry CLI interface[(https://github.com/cloudfoundry/cli#downloads).
+
+3. Register for a [Bluemix account](https://console.ng.bluemix.net/registration/). We will be using two services from BlueMix for this application:
+  * The [Natural Language Classifier[(http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html) service interprets the intent behind the queries to the bot, and will return a classification corresponding to the nature of the query.
+  * [Insights for Weather](https://console.ng.bluemix.net/catalog/services/insights-for-weather) enables you to integrate real-time or historical data into your applications.
+
+4. Have a Slack team with admin privileges ready, or create a new [Slack](https://slack.com/) team.
+
+
 ## Quick Start:
 
-1. Clone the repository:
+1. Clone the Watson Weather repository from a directory you'd like to store the bot:
 
   `git clone https://github.com/IBM-MIL/WatsonWeatherBot/`
 
-2. Follow the steps to get the [CF tool installed]((https://new-console.ng.bluemix.net/docs/starters/install_cli.html)) and logged in to your Bluemix account.
+2. If you haven't already, login to BlueMix. First, set the API endpoint and then login to your account.
 
-3. Create the required services:
+```
+cf api https://api.ng.bluemix.net
+cf login
+```
+
+3. Create the services the Bot uses, Weather Insights and Natural Language Classifier.
+
+*Note that you will receive a warning that the Natural Language Classifier incurs a cost. As of the time this bot was created, a starter level of usage is included at not cost. For more details, see the [NLC pricing](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html#pricing-block).
 
   ```
   cf create-service weatherinsights Free weatherbot-weather
   cf create-service natural_language_classifier standard weatherbot-nlc
   ```
   
-4. Deploy the app:
+4. Deploy the app from your local environment to BlueMix. There will be a delay of several minutes to install the system dependencies, download app dependencies, and compile the application.
 
   `cf push`
   
 5. Get the URL for your app and also credentials such as username and password from both weatherbot-weather and weatherbot-nlc
 
-  `cf env`
+  `cf env WatsonWeatherBot`
   
   The complete VCAP information will be dumped to the screen. Record somewhere the username and passwords:
   
@@ -68,7 +83,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
  }
  ```
   
- 6. Train the Natural Language Classifier:
+ 6. Train the Natural Language Classifier. Replace username:password below with the credentials from the `natural_language_classifier` section of `VCAP_SERVICES` you recorded in the previous step.
  
  ```
  curl -u username:password -F training_data=@Training/weather_question_corpus.csv -F training_metadata="{\"language\":\"en\",\"name\":\"My Classifier\"}" "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers"
@@ -158,4 +173,3 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
  ```
  Today: Sunshine and a few afternoon clouds. High 91F. Winds SE at 5 to 10 mph. Tonight Partly cloudy. Low 71F. Winds SSE at 5 to 10 mph. The current temperature in Austin is 78 F.
  ```
- 
