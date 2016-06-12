@@ -1,3 +1,4 @@
 .build/*
 Packages/*
 Sources/Configuration.swift
+WatsonWeatherBot.xcodeproj
