@@ -23,31 +23,31 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 
 2. If you haven't already, login to BlueMix. To do so, set the API endpoint and then login to your account.
 
-```bash
-cf api https://api.ng.bluemix.net
-cf login
-```
+ ```bash
+ cf api https://api.ng.bluemix.net
+ cf login
+ ```
 
 3. Create the services the Bot uses, Weather Insights and Natural Language Classifier.
 
-*Note that you will receive a warning that the Natural Language Classifier incurs a cost. As of the time this bot was created, a starter level of usage is included at not cost. For more details, see the [NLC pricing](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html#pricing-block).
+ > Note that you will receive a warning that the Natural Language Classifier incurs a cost. As of the time this bot was created, a starter level of usage is included at not cost. For more details, see the [NLC pricing](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html#pricing-block).
 
-  ```bash
-  cf create-service weatherinsights Free weatherbot-weather
-  cf create-service natural_language_classifier standard weatherbot-nlc
-  ```
-  
+ ```bash
+ cf create-service weatherinsights Free weatherbot-weather
+ cf create-service natural_language_classifier standard weatherbot-nlc
+ ```
+ 
 4. Deploy the app from your local environment to BlueMix. There will be a delay of several minutes to install the system dependencies, download app dependencies, and compile the application.
 
-  `cf push`
-  
+ `cf push`
+ 
 5. Get the URL for your app and also credentials such as username and password from both weatherbot-weather and weatherbot-nlc
 
-  `cf env WatsonWeatherBot`
+ `cf env WatsonWeatherBot`
   
-  The complete VCAP information will be dumped to the screen. Record somewhere the username and passwords:
+ The complete VCAP information will be dumped to the screen. Record somewhere the username and passwords:
   
-  ```javascript
+ ```javascript
   "weatherinsights": [
    {
     "credentials": {
@@ -67,11 +67,11 @@ cf login
     ]
    }
   ]
-  ```
+ ```
   
-  Record the URIs that appears for your deployment:
+ Record the URIs that appears for your deployment:
   
-  ```javascript
+ ```javascript
   "name": "WatsonWeatherBot",
   "space_id": "f900a490-dbd5-4053-abe2-c7645e3527eb",
   "space_name": "Swift",
@@ -82,14 +82,16 @@ cf login
   "version": "dfa2cccf-8990-4dc4-9a0b-876579beae29"
  }
  ```
-  
- 6. Train the Natural Language Classifier. During this process, you seed the classifier with some strings and corresponding classifications. A training set is provided in `Training/weather_question_corpus.csv`. Note that it may take several minutes for the training process to complete.
  
-Replace username:password below with the credentials from the `natural_language_classifier` section of `VCAP_SERVICES` you recorded in the previous step.
+6. Train the Natural Language Classifier. 
  
- ```bash
- curl -u username:password -F training_data=@Training/weather_question_corpus.csv -F training_metadata="{\"language\":\"en\",\"name\":\"My Classifier\"}" "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers"
- ```
+ During this process, you seed the classifier with some strings and corresponding classifications. A training set is provided in `Training/weather_question_corpus.csv`. Note that it may take several minutes for the training process to complete.
+ 
+ Replace username:password below with the credentials from the `natural_language_classifier` section of `VCAP_SERVICES` you recorded in the previous step.
+ 
+  ```bash
+  curl -u username:password -F training_data=@Training/weather_question_corpus.csv -F training_metadata="{\"language\":\"en\",\"name\":\"My Classifier\"}" "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers"
+  ```
 
 7. Record the `classifier_id`. After the training step, it will be returned in a message similar to this:
 
@@ -105,7 +107,9 @@ Replace username:password below with the credentials from the `natural_language_
  }%
  ```
 
-9. Add new integrations to your Slack team. From `https://<TEAM-NAME>.slack.com/apps`, you will search for the ***Slash Commands*** and ***Incoming Webhooks*** integrations during the following steps.
+9. Add new integrations to your Slack team. 
+
+ From `https://<TEAM-NAME>.slack.com/apps`, you will search for the ***Slash Commands*** and ***Incoming Webhooks*** integrations during the following steps.
 
 10. Install the integration ***Slash Commands***:
 
