@@ -17,34 +17,34 @@
 /**
  * Configuration settings for integration services
  */
-public struct Configuration  {
-    
+public struct Configuration {
+
     /// Latitude and longitude. ex. "30.401633699999998,-97.7143924"
     static let staticGeocode = ""
-    
+
     /// Token assigned automatically from the 'Slash Commands' integration
     static let slackToken = ""
-    
+
     /// Natural language classifier ID. You get this after training your classifier
     static let classifierID = ""
-    
+
     /**
-    * You can obtain the below information after your app has been deployed by 
+    * You can obtain the below information after your app has been deployed by
     * running `cf env`
     */
-    
+
     /// Username for Weather Insights service
     static let weatherUsername = ""
-    
+
     /// Username for Weather Insights service
     static let weatherPassword = ""
-    
+
     /// Username for Watson Natural Language Classifier service
     static let naturalLanguageClassifierUsername = ""
-    
+
     /// Username for Watson Natural Language Classifier service
     static let naturalLanguageClassifierPassword = ""
-    
-  
-    
+
+
+
 }
