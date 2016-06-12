@@ -81,6 +81,7 @@ class WatsonWeatherBot {
 
         } catch {
             Log.error("Failed to send response \(error)")
+            response.status(.badRequest)
         }
     }
 
