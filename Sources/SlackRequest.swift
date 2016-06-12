@@ -31,8 +31,10 @@ public enum SlackItem {
     case command
     case text
     case responseURL
-    
-    /// Represent the voice as a `String`.
+
+    /**
+    * Returns the String representation of the field"
+    */
     public func description() -> String {
         switch self {
         case token: return "token"
@@ -49,39 +51,36 @@ public enum SlackItem {
     }
 }
 
+/**
+ * Request information coming from the Slash command integration
+ */
 public struct SlackRequest {
-    
-    public var token:String?
-    
-    public var teamId:String?
-    
-    public var teamDomain:String?
-    
-    public var channelId:String?
-    
-    public var channelName:String?
-    
-    public var userId:String?
-    
-    public var userName:String?
-    
-    public var command:String?
-    
-    public var text:String?
-    
-    public var responseURL:String? = ""
-    
-    public init(payload:String) {
-        
-        // use removingPercentEncoding on the string once that functionality is available in swift 3
-        // foundations
-        
+
+    public var token: String?
+
+    public var teamId: String?
+
+    public var teamDomain: String?
+
+    public var channelId: String?
+
+    public var channelName: String?
+
+    public var userId: String?
+
+    public var userName: String?
+
+    public var command: String?
+
+    public var text: String?
+
+    public var responseURL: String? = ""
+
+    public init(payload: String) {
         let elementPairs = payload.components(separatedBy: "&")
-        //
         for element in elementPairs {
-            print(element)
             let elementItem = element.components(separatedBy: "=")
-            
+
             switch elementItem[0] {
             case SlackItem.token.description():
                 token = elementItem[1]
@@ -107,19 +106,3 @@ public struct SlackRequest {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

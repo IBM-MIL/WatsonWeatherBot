@@ -21,7 +21,7 @@ import Foundation
  * From https://api.slack.com/docs/attachments
 */
 struct SlackMessageAttachment {
-    
+
     /// A plain-text summary of the attachment.
     var fallback: String?
     /// An optional value that can either be one of good, warning, danger.
@@ -29,25 +29,25 @@ struct SlackMessageAttachment {
     /// This is optional text that appears above the message attachment block.
     var pretext: String?
     /// Small text used to display the author's name.
-    var author_name: String?
+    var authorName: String?
     /// A valid URL that will hyperlink the author_name text mentioned above.
-    var author_link: String?
+    var authorLink: String?
     /// A valid URL that displays a small 16x16px image to the left of the author_name text
-    var author_icon: String?
+    var authorIcon: String?
     /// The title is displayed as larger, bold text near the top of a message attachment.
     var title: String?
     /// By passing a valid URL the title text will be hyperlinked
-    var title_link: String?
+    var titleLink: String?
     /// This is the main text in a message attachment, and can contain standard message markup
     var text: String?
     /// A valid URL to an image file that will be displayed inside a message attachment.
-    var image_url: String?
+    var imageUrl: String?
     /// A valied URL to an image file that will be displayed as a thumbnail on the right side
-    var thumb_url: String?
+    var thumbUrl: String?
     /// Add some brief text to help contextualize and identify an attachment.
     var footer: String?
     /// To render a small icon beside your footer text, provide a URL string
-    var footer_icon: String
-    /// By providing the ts field the attachment will display an additional timestamp parameter.
-    var ts: Int    
+    var footerIcon: String
+    /// By providing the (ts) field the attachment will display an additional timestamp parameter.
+    var timestamp: Int
 }

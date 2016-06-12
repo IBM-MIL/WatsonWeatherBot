@@ -33,23 +33,22 @@ enum WatsonError: ErrorProtocol {
 
 /**
  Gets the top class identifier based on the NLC training for the provided input text
- 
+
  - parameter text:    text to classify
  - parameter success: returns the top class name
  */
-public func getClassifyTopClass(text:String, success: (String -> Void) ) {
-    
-    let nlc = NaturalLanguageClassifier(username: Configuration.naturalLanguageClassifierUsername ,
+public func getClassifyTopClass(text: String, success: (String -> Void) ) {
+
+    let nlc = NaturalLanguageClassifier(username: Configuration.naturalLanguageClassifierUsername,
                                         password: Configuration.naturalLanguageClassifierPassword)
-    
+
     nlc.classify(
         classifierId: Configuration.classifierID,
         text: text,
         failure: failure) { classify in
-            
+
             var returnValue = ""
-            print("Top class is \(classify.topClass) with confidence of \(classify.classes[0].confidence)")
-            if (classify.classes[0].confidence > confidenceThreshold) {
+            if classify.classes[0].confidence > confidenceThreshold {
                 returnValue = String(classify.topClass)
             }
             success(returnValue)
@@ -58,48 +57,49 @@ public func getClassifyTopClass(text:String, success: (String -> Void) ) {
 
 /**
  Gets the current temperature with the provided geocode
- 
+
  - parameter geoCode: geocode to use as location lookup
  - parameter success: current temperature in sentence format
  */
-public func getCurrentTemperature(geoCode:String, success: (String -> Void) ) {
-    
+public func getCurrentTemperature(geoCode: String, success: (String -> Void) ) {
+
     let insightsForWeather = InsightsForWeather(username: Configuration.weatherUsername,
                                                 password: Configuration.weatherPassword)
-    
+
     insightsForWeather.getCurrentForecast(
         units: "e",
         geocode: geoCode,
         language: "en-US",
         failure: failure) { forecast in
-            
+
             guard let measurement = forecast.observation.measurement else {
                 Log.error("Failed to get a proper measurement")
                 return
             }
-            
+
             let temp = String("The current temperature in San Francisco is \(measurement.temp) F.")
-            
+
             success(temp)
     }
 }
 
 /**
  Gets the current weather conditions for night and day based on the geocode provided
- 
+
  - parameter geoCode: geocode to use as location lookup
  - parameter success: Returns day and night weather conditions
  */
-public func getTodaysForecast(geoCode:String, success: (String -> Void) ) {
-    
-    let insightsForWeather = InsightsForWeather(username: Configuration.weatherUsername, password: Configuration.weatherPassword)
-    
+public func getTodaysForecast(geoCode: String, success: (String -> Void) ) {
+
+    let insightsForWeather = InsightsForWeather(username: Configuration.weatherUsername,
+                                                password: Configuration.weatherPassword)
+
     insightsForWeather.get10DayForecast(
         units: "e",
         geocode: geoCode,
         language: "en-US",
         failure: failure) { forecast in
-            
+
             let day = String(" Today: \(forecast.forecasts[0].day!.narrative)")
             let night = String(" Tonight \(forecast.forecasts[0].night!.narrative)")
             success(day + night)
@@ -107,15 +107,16 @@ public func getTodaysForecast(geoCode:String, success: (String -> Void) ) {
 }
 
 /**
- Retrieves the current conditions which is a collection of today's forcast and the current temperature
- 
+ Retrieves the current conditions which is a collection of today's forcast
+ and the current temperature
+
  - parameter geoCode: geocode to use as location lookup
  - parameter success: Returns day and night weather conditions along with and current temperature
  */
-public func getConditions(geoCode:String, success: (String -> Void) ) {
-    
+public func getConditions(geoCode: String, success: (String -> Void) ) {
+
     getCurrentTemperature(geoCode: geoCode) { temp in
-        
+
         getTodaysForecast(geoCode: geoCode, success: { forecast in
             success(forecast + temp)
         })

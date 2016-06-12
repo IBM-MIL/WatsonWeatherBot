@@ -1,0 +1,6 @@
+disabled_rules:
+    - type_name
+excluded:
+    - Packages
+    - Training
+    - .build

@@ -20,45 +20,46 @@ import LoggerAPI
 
 
 class WatsonWeatherBot {
-    
+
     let router: Router = Router()
-    
+
     init() {
         router.get("/temperature", handler: handleTemperature)
         router.post("/askWatson", handler: handleAskWatson)
     }
-    
-    private func handleAskWatson(request: RouterRequest, response: RouterResponse, next: ()->Void ) {
-        
+
+    private func handleAskWatson(request: RouterRequest,
+                                 response: RouterResponse, next: () -> Void ) {
+
         do {
             let requestData = try request.readString()
-            
+
             guard let readString = requestData else {
                 try response.status(.badRequest).end()
                 return
             }
-            
+
             let requestDecoded = SlackRequest(payload: readString)
-            
+
             guard let token = requestDecoded.token else {
                 Log.warning("Slack sent request without a token")
                 try response.status(.forbidden).send("forbidden").end()
                 next()
                 return
             }
-            
+
             guard token == Configuration.slackToken else {
                 Log.warning("Slack sent a request with an invalid token")
                 try response.status(.forbidden).send("forbidden").end()
                 next()
                 return
             }
-        
+
             getClassifyTopClass(text: requestDecoded.text!) { topClass in
-                
+
                 do {
                     var sendValue = ""
-                    switch(topClass) {
+                    switch topClass {
                     case "temperature":
                         getCurrentTemperature(geoCode: Configuration.staticGeocode) { temperature in
                             sendValue = temperature
@@ -77,32 +78,28 @@ class WatsonWeatherBot {
                 }
                 next()
             }
-            
+
         } catch {
             Log.error("Failed to send response \(error)")
         }
     }
-    
-    private func handleTemperature(request: RouterRequest, response: RouterResponse, next: ()->Void ) {
-        
+
+    private func handleTemperature(request: RouterRequest,
+                                   response: RouterResponse, next: () -> Void ) {
+
         getCurrentTemperature(geoCode: Configuration.staticGeocode) {
-            
+
             temperature in
-            
+
             do {
                 try response.status(.OK).send(temperature).end()
             } catch {
                 Log.error("Failed to send response")
             }
-            
+
             next()
         }
-        
+
     }
-    
+
 }
-
-
-
-
-
