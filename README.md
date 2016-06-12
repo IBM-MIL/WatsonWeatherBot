@@ -41,11 +41,11 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
  cf create-service natural_language_classifier standard weatherbot-nlc
  ```
  
-4. Deploy the app from your local environment to BlueMix. There will be a delay of several minutes to install the system dependencies, download app dependencies, and compile the application.
+5. Deploy the app from your local environment to BlueMix. There will be a delay of several minutes to install the system dependencies, download app dependencies, and compile the application.
 
  `cf push`
  
-5. Get the URL for your app and also credentials such as username and password from both weatherbot-weather and weatherbot-nlc
+6. Get the URL for your app and also credentials such as username and password from both weatherbot-weather and weatherbot-nlc
 
  `cf env WatsonWeatherBot`
   
@@ -87,7 +87,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
  }
  ```
  
-6. Train the Natural Language Classifier. 
+7. Train the Natural Language Classifier. 
  
  During this process, you seed the classifier with some strings and corresponding classifications. A training set is provided in `Training/weather_question_corpus.csv`. Note that it may take several minutes for the training process to complete.
  
@@ -111,7 +111,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
  }%
  ```
 
-9. Add ***Slash Command*** integration to your Slack team. 
+8. Add ***Slash Command*** integration to your Slack team. 
 
  From `https://<TEAM-NAME>.slack.com/apps`, search for the ***Slash Commands*** integration.
 
@@ -127,7 +127,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
      Usage hint: `What is the current temperature?`
  ```
  
-12. Modify Configuration.swift in `Sources` directory
+9. Modify Configuration.swift in `Sources` directory
 
  Open in your favorite editor Configuration.swift. All of these values need to be set.
  
@@ -145,7 +145,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 }
 ```
 
-13. Redeploy your app now with the Credentials set properly
+10. Redeploy your app now with the Credentials set properly
 
  `cf push`
   
@@ -157,10 +157,12 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
  App started
  ```
   
-14. Type in your Slack channel: `/weather What are the current weather conditions?`
+11. Type in your Slack channel: `/weather What are the current weather conditions?`
 
  If it worked properly, you should get a similar response:
  
  ```
- Today: Sunshine and a few afternoon clouds. High 91F. Winds SE at 5 to 10 mph. Tonight Partly cloudy. Low 71F. Winds SSE at 5 to 10 mph. The current temperature in San Francisco is 78 F.
+ Today: Sunshine and a few afternoon clouds. High 91F. Winds SE at 5 to 10 mph. 
+ Tonight Partly cloudy. Low 71F. Winds SSE at 5 to 10 mph. 
+ The current temperature in San Francisco is 78 F.
  ```
