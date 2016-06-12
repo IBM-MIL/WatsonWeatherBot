@@ -21,14 +21,18 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 
   `git clone https://github.com/IBM-MIL/WatsonWeatherBot/`
 
-2. If you haven't already, login to BlueMix. To do so, set the API endpoint and then login to your account.
+2. Copy the Configuration-Sample.swift file to Sources/Configuration.swift
+
+ `cp Configuration-Sample.swift Sources/Configuration.swift`
+
+3. If you haven't already, login to BlueMix. To do so, set the API endpoint and then login to your account.
 
  ```bash
  cf api https://api.ng.bluemix.net
  cf login
  ```
 
-3. Create the services the Bot uses, Weather Insights and Natural Language Classifier.
+4. Create the services the Bot uses: Weather Insights and Natural Language Classifier.
 
  > Note that you will receive a warning that the Natural Language Classifier incurs a cost. As of the time this bot was created, a starter level of usage is included at not cost. For more details, see the [NLC pricing](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html#pricing-block).
 
@@ -107,11 +111,9 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
  }%
  ```
 
-9. Add new integrations to your Slack team. 
+9. Add ***Slash Command*** integration to your Slack team. 
 
- From `https://<TEAM-NAME>.slack.com/apps`, you will search for the ***Slash Commands*** and ***Incoming Webhooks*** integrations during the following steps.
-
-10. Install the integration ***Slash Commands***:
+ From `https://<TEAM-NAME>.slack.com/apps`, search for the ***Slash Commands*** integration.
 
  Use the following configuration:
  
@@ -123,15 +125,6 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
   Autocomplete help text: Select the box
      Description: `Get the weather`
      Usage hint: `What is the current temperature?`
- ```
-
-11. Install the integration ***Incoming Webhooks***:
-  
- Use the following configuration:
-
- ```
- Post to Channel: (choose a channel to post the weather information to)
- Webhook URL: (This is not settable, record this to later place in Configuration.swift)
  ```
  
 12. Modify Configuration.swift in `Sources` directory
