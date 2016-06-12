@@ -54,8 +54,15 @@ class WatsonWeatherBot {
                 next()
                 return
             }
+            
+            guard let requestText = requestDecoded.text else {
+                Log.warning("Slack sent a request with no text")
+                try response.status(.badRequest).end()
+                next()
+                return
+            }
 
-            getClassifyTopClass(text: requestDecoded.text!) { topClass in
+            getClassifyTopClass(text: requestText) { topClass in
 
                 do {
                     var sendValue = ""
@@ -71,11 +78,13 @@ class WatsonWeatherBot {
                     default:
                         sendValue  = "I'm currently not trained for this type of question"
                     }
-                    Log.info("text from decode \(requestDecoded.text)")
+          
                     try response.status(.OK).send(sendValue).end()
+                    
                 } catch {
                     Log.error("Failed to send response \(error)")
                 }
+                
                 next()
             }
 
