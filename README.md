@@ -1,5 +1,7 @@
 # Watson Weather Bot
 
+[![Build Status](https://travis-ci.org/IBM-MIL/WatsonWeatherBot.svg?branch=master)](https://travis-ci.org/IBM-MIL/WatsonWeatherBot)
+
 A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-watson-sdk](https://github.com/IBM-Swift/swift-watson-sdk) to create a Slack bot for grabbing current weather information.
 
 ## Prerequisites:
@@ -23,7 +25,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 
 2. Copy the Configuration-Sample.swift file to Sources/Configuration.swift
 
- `cp Configuration-Sample.swift Sources/Configuration.swift`
+ `cp Config/Configuration-Sample.swift Sources/Configuration.swift`
 
 3. If you haven't already, login to BlueMix. To do so, set the API endpoint and then login to your account.
 
@@ -89,7 +91,7 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
  
 7. Train the Natural Language Classifier. 
  
- During this process, you seed the classifier with some strings and corresponding classifications. A training set is provided in `Training/weather_question_corpus.csv`. Note that it may take several minutes for the training process to complete.
+ During this process, you seed the classifier with some strings and corresponding classifications. A training set is provided in `Config/weather_question_corpus.csv`. Note that it may take several minutes for the training process to complete.
  
  Replace username:password below with the credentials from the `natural_language_classifier` section of `VCAP_SERVICES` you recorded in the previous step.
  
