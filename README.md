@@ -34,6 +34,20 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 
 ## Quick Start with the IBM Cloud Tool for Swift:
 
+- Sign in to Bluemix and create Insights for Weather and Natural Language Classifier services
+
+Using the Web Interface, go to the Bluemix Catalog and create an Insights for Weather application called 'weatherinsights'. Next, create a Natural Language Classifier called natural_language_classifier.
+
+- Download and install the [IBM Cloud Tool (beta)](http://cloudtools.bluemix.net/)
+
+- Create a new IBM Cloud Tool project called 'Watson Weather Bot'
+
+ Open ICT and from the Projects view, click on the blue "+" icon in the upper right hand corner.
+ Select Create Kitura Project. Enter the project name "Watson Weather Bot" and click Next.
+ 
+- Add Cloud Runtime
+
+ Enter a Cloud Runtime Name, "WatsonWeatherBot". This will generate a Cloud runtime URL on Bluemix. Select the space on Bluemix where you would like to deploy. Click Next.
 
 ## Quick Start with Cloud Foundry Command Line Tool:
 
