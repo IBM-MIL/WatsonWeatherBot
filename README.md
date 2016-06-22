@@ -8,8 +8,6 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 
 1. Install [Open source Swift 3.0 - SNAPSHOT 05-03-a](https://swift.org/download/#snapshots), making sure to [update your `$PATH`](https://swift.org/getting-started/#installing-swift). 
 
-2. Install the [Cloud Foundry CLI interface](https://github.com/cloudfoundry/cli#downloads).
-
 3. Register for a [Bluemix account](https://console.ng.bluemix.net/registration/). We will be using two services from BlueMix for this application:
   * The [Natural Language Classifier](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html) service interprets the intent behind the queries to the bot, and will return a classification corresponding to the nature of the query.
   * [Insights for Weather](https://console.ng.bluemix.net/catalog/services/insights-for-weather) enables you to integrate real-time or historical data into your applications.
@@ -33,6 +31,13 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
  cf api https://api.ng.bluemix.net
  cf login
  ```
+
+## Quick Start with the IBM Cloud Tool for Swift:
+
+
+## Quick Start with Cloud Foundry Command Line Tool:
+
+2. Install the [Cloud Foundry CLI interface](https://github.com/cloudfoundry/cli#downloads).
 
 4. Create the services the Bot uses: Weather Insights and Natural Language Classifier.
 
