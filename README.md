@@ -34,20 +34,33 @@ A [Kitura](https://github.com/IBM-Swift/Kitura) project which uses the [swift-wa
 
 ## Quick Start with the IBM Cloud Tool for Swift:
 
-- Sign in to Bluemix and create Insights for Weather and Natural Language Classifier services
+1. Sign in to Bluemix and create Insights for Weather and Natural Language Classifier services
 
-Using the Web Interface, go to the Bluemix Catalog and create an Insights for Weather application called 'weatherinsights'. Next, create a Natural Language Classifier called natural_language_classifier.
+ Using the Web Interface, go to the Bluemix Catalog and create an Insights for Weather application called 'weatherinsights'. Next, create a Natural Language Classifier called natural_language_classifier.
 
-- Download and install the [IBM Cloud Tool (beta)](http://cloudtools.bluemix.net/)
+2. Download and install the [IBM Cloud Tool (beta)](http://cloudtools.bluemix.net/)
 
-- Create a new IBM Cloud Tool project called 'Watson Weather Bot'
+3. Create a new IBM Cloud Tool project called 'Watson Weather Bot'
 
  Open ICT and from the Projects view, click on the blue "+" icon in the upper right hand corner.
  Select Create Kitura Project. Enter the project name "Watson Weather Bot" and click Next.
  
-- Add Cloud Runtime
+4. Add Cloud Runtime
 
- Enter a Cloud Runtime Name, "WatsonWeatherBot". This will generate a Cloud runtime URL on Bluemix. Select the space on Bluemix where you would like to deploy. Click Next.
+ Enter a Cloud Runtime Name, "WatsonWeatherBot". This will generate a Cloud runtime URL on Bluemix. Select the space on Bluemix where you would like to deploy (dev is fine). Click Next.
+ 
+5. Choose a location to save your files.
+
+ You will see a loading screen that ICT is cloning the Kitura sample project to your computer, deploying the compiling the code to Bluemix, then running the project on the server. We will overwrite what's in the sample project with the code you cloned from the repository next. 
+ 
+6. Copy all the files that you cloned from the Watson Weather Bot repository and place them in the directory you chose when you created the Cloud Runtime. 
+
+ The Package.swift and Manifest.yml file should be at the root of the directory after you copy them over. If the OS asks to confirm overwriting the files, select OK.
+ 
+7. Deploy the Watson Weather Bot code using the tool.
+
+ Deploy the updated files to Bluemix by clicking the deploy icon (it looks like a cloud with an arrowing going into it). This step can take 4-7 minutes to complete since it pulls all the dependencies for Kitura and compiles the app on the server.
+ 
 
 ## Quick Start with Cloud Foundry Command Line Tool:
 
